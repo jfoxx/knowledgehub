@@ -2,7 +2,6 @@ import {
   loadHeader,
   loadFooter,
   decorateButtons,
-  decorateIcons,
   decorateSections,
   decorateBlocks,
   decorateTemplateAndTheme,
@@ -12,6 +11,20 @@ import {
   loadCSS,
   getMetadata,
 } from './aem.js';
+
+function decorateIcons(element, prefix = '') {
+  element.querySelectorAll('span.icon').forEach((span) => {
+    const iconName = Array.from(span.classList)
+      .find((c) => c.startsWith('icon-'))
+      .substring(5);
+    const img = document.createElement('img');
+    img.dataset.iconName = iconName;
+    img.src = `${window.hlx.codeBasePath}${prefix}/icons/${iconName}.svg`;
+    img.alt = '';
+    img.loading = 'lazy';
+    span.append(img);
+  });
+}
 
 import './uikit.min.js';
 import './uikit-icons.min.js';

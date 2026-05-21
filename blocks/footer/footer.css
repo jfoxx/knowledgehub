@@ -22,7 +22,7 @@ footer .footer p {
 }
 
 footer .footer img {
-  width: 55px;
+  max-width: 100%;
   height: auto;
 }
 
