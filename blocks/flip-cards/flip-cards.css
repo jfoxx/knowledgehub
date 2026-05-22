@@ -1,0 +1,77 @@
+.flip-cards > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
+  gap: 24px;
+}
+
+.flip-card {
+  perspective: 1000px;
+  min-height: 220px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flip-card.is-flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.flip-card-front {
+  background-color: var(--light-color);
+  border: 1px solid var(--border-color);
+}
+
+.flip-card-back {
+  background-color: var(--adobe-red);
+  color: #fff;
+  transform: rotateY(180deg);
+}
+
+.flip-card-back * {
+  color: #fff;
+}
+
+.flip-card-back a:any-link {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* hint that the card is clickable */
+.flip-card:not(.is-flipped) .flip-card-front::after {
+  content: 'tap to flip →';
+  position: absolute;
+  bottom: 0.75rem;
+  right: 1rem;
+  font-size: 0.75rem;
+  opacity: 0.4;
+}
+
+body.dark-mode .flip-card-front {
+  background-color: var(--light-color);
+  border-color: rgba(255, 255, 255, 0.1);
+}
