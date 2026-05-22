@@ -21,6 +21,7 @@
   --overlay-color: #f8f8f8;
   --button-text-color: white;
   --adobe-red: #ED2224;
+  --border-color: #ddd;
 
   /* fonts */
   --body-font-family: Adobe Clean,roboto, roboto-fallback, sans-serif;
@@ -420,4 +421,11 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
+}
+
+main .section.boxed {
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 20px 10px;
 }
