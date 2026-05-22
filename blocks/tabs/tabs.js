@@ -1,9 +1,8 @@
-// eslint-disable-next-line import/no-unresolved
 import { toClassName } from '../../scripts/aem.js';
+import { initTabs } from '../../scripts/tabs.js';
 
 export default function decorate(block) {
   const tabNav = document.createElement('ul');
-  tabNav.setAttribute('uk-tab', '');
   tabNav.className = 'uk-tab';
 
   const switcher = document.createElement('ul');
@@ -12,27 +11,24 @@ export default function decorate(block) {
   [...block.children].forEach((row, i) => {
     const heading = row.firstElementChild;
 
-    // Build tab
     const li = document.createElement('li');
     if (i === 0) li.classList.add('uk-active');
 
     const a = document.createElement('a');
     a.textContent = heading.textContent;
-
-    // Prevent default link jump
-    a.addEventListener('click', (e) => e.preventDefault());
+    a.href = '#';
 
     li.appendChild(a);
     tabNav.appendChild(li);
 
-    // Build panel
     const panel = document.createElement('li');
-
-    heading.remove(); // remove heading from panel
+    heading.remove();
     panel.append(...row.children);
     switcher.appendChild(panel);
   });
 
   block.textContent = '';
   block.append(tabNav, switcher);
+
+  initTabs(tabNav, switcher);
 }

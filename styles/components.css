@@ -1,0 +1,131 @@
+/* ============================================================
+   components.css — replaces uikit.min.css subset used by this project
+   ============================================================ */
+
+/* Accordion */
+.uk-accordion-default {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.uk-accordion-default > li { list-style: none; }
+
+a.uk-accordion-title {
+  display: flex;
+  align-items: center;
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.uk-accordion-icon {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+a.uk-accordion-title:hover { text-decoration: none; }
+
+.uk-accordion-content { display: none; }
+.uk-open > .uk-accordion-content { display: block; }
+
+/* Accordion icon — animated +/− (SVG itself carries the class) */
+.uk-accordion-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.uk-accordion-icon > [class*="line-"] {
+  transition: 0.2s ease-out;
+  transition-property: transform, opacity;
+  transform-origin: center;
+}
+[aria-expanded="true"] .uk-accordion-icon > .line-1 {
+  transform: rotate(-45deg);
+  opacity: 0;
+}
+[aria-expanded="true"] .uk-accordion-icon > .line-2 {
+  transform: rotate(90deg);
+}
+
+/* Nav */
+.uk-nav,
+.uk-nav-default {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.uk-nav-default > li { list-style: none; }
+
+.uk-nav-default a {
+  color: var(--text-color);
+  text-decoration: none;
+  display: block;
+}
+
+/* Subnav (header) */
+.uk-subnav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+}
+
+/* Cards */
+.uk-card { box-sizing: border-box; }
+.uk-card-default {
+  background: var(--background-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+}
+.uk-card-body { padding: 1.25rem; }
+.uk-animation-scale-up { transition: transform 0.15s ease; }
+.uk-animation-scale-up:hover { transform: scale(1.02); }
+
+/* Alert / Notebox */
+.uk-alert {
+  position: relative;
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  border-radius: 8px;
+  border-left: 4px solid;
+}
+.uk-alert-primary  { background: #e8f4fd; border-color: #0073e6; }
+.uk-alert-warning  { background: #fff8e6; border-color: #f5a623; }
+.uk-alert-danger   { background: #fdecea; border-color: #e53935; }
+.uk-alert-success  { background: #e6f4ea; border-color: #34a853; }
+.uk-alert-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  color: inherit;
+  opacity: 0.6;
+}
+.uk-alert-close:hover { opacity: 1; }
+
+/* Icon */
+.uk-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Flex / Margin utilities */
+.uk-flex { display: flex; }
+.uk-margin { margin: 1rem 0; }
+
+/* Navbar — base rule; visual styles live in header.css */
+.uk-navbar-container { position: relative; }
+
+/* Tab switcher panels */
+.uk-switcher > li { display: none; }
+.uk-switcher > li.uk-active { display: block; }

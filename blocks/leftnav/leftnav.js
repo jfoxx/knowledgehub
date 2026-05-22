@@ -1,3 +1,5 @@
+import { initAccordion } from '../../scripts/accordion.js';
+
 async function getNavTitle() {
   try {
     const resp = await fetch('/placeholders.json');
@@ -59,7 +61,7 @@ function renderSections(sections) {
       const toggle = document.createElement('a');
       toggle.className = 'uk-accordion-title';
       toggle.href = '#';
-      toggle.innerHTML = `${label} <span uk-accordion-icon></span>`;
+      toggle.innerHTML = `${label} <svg class="uk-accordion-icon" width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><rect width="13" height="1" fill="currentColor" x="0" y="6" class="line-1"></rect><rect width="1" height="13" fill="currentColor" x="6" y="0" class="line-2"></rect></svg>`;
 
       const content = document.createElement('div');
       content.className = 'uk-accordion-content';
@@ -108,7 +110,9 @@ export default async function decorate(block) {
 
   const wrapper = document.createElement('div');
   wrapper.className = 'aem-parent';
-  wrapper.appendChild(renderSections(sections));
+  const ul = renderSections(sections);
+  wrapper.appendChild(ul);
   block.appendChild(wrapper);
+  initAccordion(ul);
 
 }

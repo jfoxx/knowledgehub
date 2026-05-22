@@ -26,8 +26,8 @@ function decorateIcons(element, prefix = '') {
   });
 }
 
-import './uikit.min.js';
-import './uikit-icons.min.js';
+import './accordion.js';
+import './tabs.js';
 
 function toggleLeftNav() {
   document.body.classList.toggle('leftnav-collapsed');
@@ -56,19 +56,26 @@ async function loadLeftNav(main) {
   collapseBtn.type = 'button';
   collapseBtn.className = 'leftnav-collapse-btn';
   collapseBtn.setAttribute('aria-label', 'Collapse navigation');
-  collapseBtn.innerHTML = '<span uk-icon="icon: chevron-left; ratio: 1.2"></span>';
+  collapseBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 20 20" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="13 16 7 10 13 4"/></svg>';
   collapseBtn.addEventListener('click', toggleLeftNav);
 
   const expandBtn = document.createElement('button');
   expandBtn.type = 'button';
   expandBtn.className = 'leftnav-expand-btn';
   expandBtn.setAttribute('aria-label', 'Expand navigation');
-  expandBtn.innerHTML = '<span uk-icon="icon: chevron-right; ratio: 1.2"></span>';
+  expandBtn.innerHTML = '<svg width="24" height="24" viewBox="0 0 20 20" aria-hidden="true"><polyline fill="none" stroke="currentColor" stroke-width="1.5" points="7 4 13 10 7 16"/></svg>';
   expandBtn.addEventListener('click', toggleLeftNav);
 
   block.prepend(collapseBtn);
   wrapper.append(aside, expandBtn);
-  main.insertBefore(wrapper, main.querySelector('.section'));
+
+  // Wrap all sections in a content column so leftnav and sections are flex siblings
+  const contentWrapper = document.createElement('div');
+  contentWrapper.className = 'main-content';
+  [...main.querySelectorAll('.section')].forEach((s) => contentWrapper.append(s));
+  main.append(contentWrapper);
+
+  main.insertBefore(wrapper, contentWrapper);
 
   const { default: decorate } = await import('../blocks/leftnav/leftnav.js');
   loadCSS(`${window.hlx.codeBasePath}/blocks/leftnav/leftnav.css`);
@@ -115,23 +122,6 @@ function buildAutoBlocks(main) {
   }
 }
 
-// ---------------------------------------------------------------------------
-// Open all links inside <main> (excluding .leftnav-container) in a new tab
-// ---------------------------------------------------------------------------
-
-/**
- * Sets target="_blank" and rel="noopener noreferrer" on every <a> inside
- * `root` that is NOT inside a .leftnav-container element.
- * @param {Element} root - The element to scope the search to (defaults to <main>)
- */
-export function decorateMainLinks(root = document.querySelector('main')) {
-  if (!root) return;
-  root.querySelectorAll('a[href]').forEach((link) => {
-    if (link.closest('.leftnav-container') || link.closest('.page-breadcrumb')) return;
-    link.setAttribute('target', '_blank');
-    link.setAttribute('rel', 'noopener noreferrer');
-  });
-}
 
 export function decorateMain(main) {
   decorateButtons(main);
@@ -139,7 +129,6 @@ export function decorateMain(main) {
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);
-  decorateMainLinks(main);
 }
 
 // ---------------------------------------------------------------------------
@@ -196,11 +185,12 @@ function formatTimestamp(timestamp) {
  * @param {string} segment
  * @returns {string}
  */
+const WORD_OVERRIDES = { aem: 'AEM' };
+
 function segmentToLabel(segment) {
-  if (segment.toLowerCase() === 'aem') return 'AEM';
   return segment
     .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    .map((word) => WORD_OVERRIDES[word.toLowerCase()] ?? (word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()))
     .join(' ');
 }
 
@@ -605,7 +595,6 @@ async function loadLazy(doc) {
 
   // Re-run link decoration after lazy sections load, catching any
   // links injected by blocks that rendered after the eager phase.
-  decorateMainLinks(main);
 }
 
 function loadDelayed() {

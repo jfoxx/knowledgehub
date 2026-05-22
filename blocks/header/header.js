@@ -151,20 +151,6 @@ export default async function decorate(block) {
         }
       });
 
-      navSection.querySelectorAll('a').forEach((link) => {
-        try {
-          const href = link.getAttribute('href') || '';
-          const path = new URL(href, window.location.origin).pathname;
-          const isHomeLink = path === '/' || path === '';
-          if (!isHomeLink) {
-            link.setAttribute('target', '_blank');
-            link.setAttribute('rel', 'noopener noreferrer');
-          }
-        } catch {
-          link.setAttribute('target', '_blank');
-          link.setAttribute('rel', 'noopener noreferrer');
-        }
-      });
     });
   }
 

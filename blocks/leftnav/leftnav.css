@@ -244,7 +244,6 @@ body.dark-mode .leftnav-no-results-hint {
 }
 
 body.dark-mode .leftnav .uk-accordion-title,
-body.dark-mode .leftnav .uk-accordion-title [uk-icon],
 body.dark-mode .leftnav .uk-nav-default a,
 body.dark-mode .leftnav .uk-nav-default li a {
   color: var(--text-color) !important;
