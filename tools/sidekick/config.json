@@ -2,17 +2,10 @@
   "project": "Knowledge Hub",
   "plugins": [
     {
-      "id": "Blocks",
-      "title": "Blocks",
+      "id": "Library",
+      "title": "Library",
       "environments": [ "edit" ],
-      "url": "/tools/sidekick/blocks.html",
-      "includePaths": [ "**.docx**" ]
-    },
-    {
-      "id": "Templates",
-      "title": "Templates",
-      "environments": [ "edit" ],
-      "url": "/tools/sidekick/templates.html",
+      "url": "/tools/sidekick/library.html",
       "includePaths": [ "**.docx**" ]
     }
   ]
