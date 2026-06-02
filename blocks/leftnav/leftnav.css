@@ -241,6 +241,7 @@ body.dark-mode .leftnav-no-results-hint {
   font-size: 0.95em;
   text-transform: uppercase;
   column-gap: 5px;
+  align-items: flex-start;
 }
 
 body.dark-mode .leftnav .uk-accordion-title,
