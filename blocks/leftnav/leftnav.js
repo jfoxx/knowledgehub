@@ -1,4 +1,48 @@
-import { initAccordion } from '../../scripts/accordion.js';
+function getContent(li) {
+  return li.querySelector('.uk-accordion-content');
+}
+
+function openItem(li) {
+  li.classList.add('uk-open');
+  const content = getContent(li);
+  if (content) content.removeAttribute('hidden');
+  const title = li.querySelector('.uk-accordion-title');
+  if (title) title.setAttribute('aria-expanded', 'true');
+}
+
+function closeItem(li) {
+  li.classList.remove('uk-open');
+  const content = getContent(li);
+  if (content) content.setAttribute('hidden', '');
+  const title = li.querySelector('.uk-accordion-title');
+  if (title) title.setAttribute('aria-expanded', 'false');
+}
+
+function initLeftnavAccordion(el) {
+  [...el.children].forEach((li) => {
+    const content = getContent(li);
+    if (!content) return;
+    if (li.classList.contains('uk-open')) {
+      content.removeAttribute('hidden');
+      li.querySelector('.uk-accordion-title')?.setAttribute('aria-expanded', 'true');
+    } else {
+      content.setAttribute('hidden', '');
+      li.querySelector('.uk-accordion-title')?.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  el.addEventListener('click', (e) => {
+    const title = e.target.closest('.uk-accordion-title');
+    if (!title) return;
+    const li = title.closest('li');
+    if (!li || !getContent(li)) return;
+    e.preventDefault();
+
+    const isOpen = li.classList.contains('uk-open');
+    [...el.children].forEach((sibling) => { if (sibling !== li) closeItem(sibling); });
+    if (isOpen) closeItem(li); else openItem(li);
+  });
+}
 
 async function getNavTitle() {
   try {
@@ -113,6 +157,6 @@ export default async function decorate(block) {
   const ul = renderSections(sections);
   wrapper.appendChild(ul);
   block.appendChild(wrapper);
-  initAccordion(ul);
+  initLeftnavAccordion(ul);
 
 }
