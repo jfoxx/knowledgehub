@@ -609,7 +609,6 @@ async function loadPage() {
 
   // Inject author + last modified banner into the first section
   const main = document.querySelector('main');
-  if (main) loadPageMetaBanner(main);
 }
 
 loadPage();
