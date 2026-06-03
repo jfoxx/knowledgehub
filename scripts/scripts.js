@@ -123,9 +123,23 @@ function buildAutoBlocks(main) {
 }
 
 
+function decorateExternalLinks(main) {
+  const { hostname } = window.location;
+  main.querySelectorAll('a[href]').forEach((a) => {
+    let url;
+    try { url = new URL(a.href); } catch { return; }
+    if (url.hostname === hostname) return;
+    if (/\.(aem\.page|aem\.live|hlx\.page|hlx\.live)$/.test(url.hostname)) return;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.classList.add('external-link');
+  });
+}
+
 export function decorateMain(main) {
   decorateButtons(main);
   decorateIcons(main);
+  decorateExternalLinks(main);
   buildAutoBlocks(main);
   decorateSections(main);
   decorateBlocks(main);

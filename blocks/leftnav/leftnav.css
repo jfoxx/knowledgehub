@@ -305,6 +305,25 @@ body.dark-mode .leftnav .aem-parent > ul > li > .uk-accordion-content > ul > li 
 }
 
 
+/* nav item icons */
+.leftnav-icon {
+  display: inline-block;
+  width: 13px;
+  height: 13px;
+  margin-right: 5px;
+  vertical-align: middle;
+  background-color: currentColor;
+  mask-image: var(--leftnav-icon-src);
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: var(--leftnav-icon-src);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  opacity: 0.6;
+}
+
 /* mobile layout < 1000px */
 @media (width < 1000px) {
   .leftnav-wrapper {

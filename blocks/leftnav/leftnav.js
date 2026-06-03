@@ -44,6 +44,20 @@ function initLeftnavAccordion(el) {
   });
 }
 
+const ICON_MAP = {
+  lab: '/icons/Smock_Beaker_18_N.svg',
+};
+
+function buildIconSpan(iconName) {
+  const src = ICON_MAP[iconName?.toLowerCase()];
+  if (!src) return null;
+  const span = document.createElement('span');
+  span.className = `leftnav-icon leftnav-icon-${iconName.toLowerCase()}`;
+  span.setAttribute('aria-hidden', 'true');
+  span.style.setProperty('--leftnav-icon-src', `url('${src}')`);
+  return span;
+}
+
 async function getNavTitle() {
   try {
     const resp = await fetch('/placeholders.json');
@@ -65,16 +79,17 @@ function buildSections(rows) {
     const topLink = row['Top Level Link']?.trim();
     const childLabel = row['Second Level Label']?.trim();
     const childLink = row['Second Level Link']?.trim();
+    const icon = row['Icon']?.trim() || null;
 
     if (!topLabel) return;
 
     if (!sections.has(topLabel)) {
-      sections.set(topLabel, { link: topLink, children: [] });
+      sections.set(topLabel, { link: topLink, icon: childLabel ? null : icon, children: [] });
     }
 
     if (childLabel) {
       const fullLink = `${topLink.replace(/\/$/, '')}/${childLink.replace(/^\//, '')}`;
-      sections.get(topLabel).children.push({ label: childLabel, link: fullLink });
+      sections.get(topLabel).children.push({ label: childLabel, link: fullLink, icon });
     }
   });
 
@@ -86,7 +101,7 @@ function renderSections(sections) {
   ul.className = 'uk-accordion-default';
   ul.setAttribute('uk-accordion', 'multiple: false; animation: false');
 
-  sections.forEach(({ link, children }, label) => {
+  sections.forEach(({ link, icon, children }, label) => {
     const li = document.createElement('li');
 
     if (children.length === 0) {
@@ -95,6 +110,8 @@ function renderSections(sections) {
       a.href = link;
       a.className = 'uk-accordion-title leftnav-direct-link';
       a.textContent = label;
+      const iconSpan = buildIconSpan(icon);
+      if (iconSpan) a.prepend(iconSpan);
       if (window.location.pathname === link) li.classList.add('uk-active');
       li.appendChild(a);
     } else {
@@ -105,7 +122,14 @@ function renderSections(sections) {
       const toggle = document.createElement('a');
       toggle.className = 'uk-accordion-title';
       toggle.href = '#';
-      toggle.innerHTML = `${label} <svg class="uk-accordion-icon" width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><rect width="13" height="1" fill="currentColor" x="0" y="6" class="line-1"></rect><rect width="1" height="13" fill="currentColor" x="6" y="0" class="line-2"></rect></svg>`;
+
+      const labelSpan = document.createElement('span');
+      labelSpan.className = 'uk-accordion-label';
+      labelSpan.textContent = label;
+      const iconSpan = buildIconSpan(icon);
+      if (iconSpan) labelSpan.prepend(iconSpan);
+      toggle.appendChild(labelSpan);
+      toggle.insertAdjacentHTML('beforeend', '<svg class="uk-accordion-icon" width="13" height="13" viewBox="0 0 13 13" aria-hidden="true"><rect width="13" height="1" fill="currentColor" x="0" y="6" class="line-1"></rect><rect width="1" height="13" fill="currentColor" x="6" y="0" class="line-2"></rect></svg>');
 
       const content = document.createElement('div');
       content.className = 'uk-accordion-content';
@@ -120,6 +144,8 @@ function renderSections(sections) {
         const a = document.createElement('a');
         a.href = child.link;
         a.textContent = child.label;
+        const childIconSpan = buildIconSpan(child.icon);
+        if (childIconSpan) a.prepend(childIconSpan);
         childLi.appendChild(a);
         childList.appendChild(childLi);
       });
