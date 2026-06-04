@@ -7,11 +7,11 @@
   border-radius: 0.5rem;
   margin: 1rem 0;
   width: 100%;
-  max-width: 700px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   font-family: Arial, sans-serif;
   position: relative;
   box-sizing: border-box;
+  background-color: var(--light-color);
 }
 
 /* Icon */
@@ -64,6 +64,9 @@
 }
 
 /* Paragraph spacing */
+.notebox-content p:first-of-type {
+  margin-top: 0;
+}
 .notebox-content p:last-of-type {
   margin-bottom: 0;
 }
