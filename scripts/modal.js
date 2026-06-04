@@ -79,7 +79,7 @@ export function initModals(main) {
     section.remove();
 
     if (openMode === 'auto') {
-      const alreadySeen = unsetProp && localStorage.getItem(unsetProp) === 'true';
+      const alreadySeen = unsetProp && localStorage.getItem(unsetProp) !== null;
       if (!alreadySeen) {
         modal.openModal();
         if (unsetProp) localStorage.setItem(unsetProp, 'true');
