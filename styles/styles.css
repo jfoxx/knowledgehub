@@ -269,7 +269,7 @@ a:hover {
 
 /* primary buttons */
 a.button:any-link,
-button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close) {
+button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab) {
   box-sizing: border-box;
   display: inline-block;
   max-width: 100%;
@@ -296,15 +296,15 @@ button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close) 
 
 a.button:hover,
 a.button:focus,
-button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):hover,
-button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):focus {
+button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):hover,
+button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):focus {
   background-color: var(--link-hover-color);
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
 
 a.button:active,
-button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):active {
+button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):active {
   transform: translateY(1px);
 }
 
