@@ -24,7 +24,7 @@
   border: 1px solid var(--dark-color);
   border-radius: 0;
   padding: 0.5em;
-  background-color: #949494;
+  background-color: var(--medium-color);
   color: initial;
   font-weight: bold;
   line-height: unset;
