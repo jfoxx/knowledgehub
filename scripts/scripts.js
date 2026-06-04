@@ -11,6 +11,7 @@ import {
   loadCSS,
   getMetadata,
 } from './aem.js';
+import { initModals } from './modal.js';
 
 function decorateIcons(element, prefix = '') {
   element.querySelectorAll('span.icon').forEach((span) => {
@@ -599,6 +600,7 @@ async function loadEager(doc) {
 async function loadLazy(doc) {
   const main = doc.querySelector('main');
   await loadSections(main);
+  initModals(main);
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;
   if (hash && element) element.scrollIntoView();

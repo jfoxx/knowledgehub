@@ -270,7 +270,7 @@ a:hover {
 
 /* primary buttons */
 a.button:any-link,
-button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab) {
+button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):not(.modal-close) {
   box-sizing: border-box;
   display: inline-block;
   max-width: 100%;
@@ -297,15 +297,15 @@ button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):
 
 a.button:hover,
 a.button:focus,
-button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):hover,
-button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):focus {
+button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):not(.modal-close):hover,
+button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):not(.modal-close):focus {
   background-color: var(--link-hover-color);
   cursor: pointer;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.18);
 }
 
 a.button:active,
-button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):active {
+button:not(.leftnav-collapse-btn):not(.leftnav-expand-btn):not(.lightbox-close):not(.tabs-tab):not(.modal-close):active {
   transform: translateY(1px);
 }
 
@@ -449,4 +449,95 @@ a.external-link::after {
   -webkit-mask-position: center;
   -webkit-mask-size: contain;
   opacity: 0.7;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.55);
+  padding: 1rem;
+}
+
+.modal-overlay[hidden] {
+  display: none;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal-container {
+  position: relative;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  border-radius: 12px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.25);
+  max-width: 680px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+.modal-close {
+  all: unset;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: background-color 0.15s;
+}
+
+.modal-close::after {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 18px;
+  background-color: var(--text-color);
+  mask-image: url('/icons/Smock_Close_18_N.svg');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url('/icons/Smock_Close_18_N.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+
+.modal-close:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+.modal-close:hover::after {
+  opacity: 1;
+}
+
+body.dark-mode .modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+main.modal-content {
+  display: block !important;
+  flex-direction: unset !important;
+  max-width: unset !important;
+  margin: 0;
+  padding: 0;
+}
+
+main.modal-content > div {
+  margin: 0;
 }
