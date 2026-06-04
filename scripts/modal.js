@@ -63,9 +63,9 @@ export function initModals(main) {
   let index = 0;
 
   main.querySelectorAll('.section[data-modal="true"]').forEach((section) => {
-    const openMode = section.dataset.modalOpen || 'auto';
-    const unsetProp = section.dataset.unsetProp || null;
-    const dismissible = section.dataset.dismissible !== 'false';
+    const openMode = (section.dataset.modalOpen || 'auto').toLowerCase().trim();
+    const unsetProp = section.dataset.unsetProp?.trim() || null;
+    const dismissible = section.dataset.dismissible?.toLowerCase().trim() !== 'false';
     const id = unsetProp || String(index);
     index += 1;
 
